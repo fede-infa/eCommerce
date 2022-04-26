@@ -1,12 +1,17 @@
 import { Request, Response } from "express";
+const isAdmin = require('../middlewares/authentication');
 
 const express = require('express');
 const router = express.Router();
 
 const file = require('../models/file');
 const Product = require('../models/products');
-const errorList = require('../api/errors');
+const errorList = require('../utils/errors');
 
+const user:{name: string, isAdmin: boolean} = {
+    'name': 'testing',
+    'isAdmin': false
+}
 
 // JSON with all products
 router.get('/products', async (req: Request, res: Response) =>{
@@ -30,26 +35,34 @@ router.get('/products/:id', async (req: Request, res: Response) =>{
 });
 
 // Create a product
-router.post('/products/', async (req: Request, res: Response) =>{
-    const product = await new Product(req.body.title, req.body.description, req.body.code, req.body.price, req.body.image);
-    console.log(`Product: ${JSON.stringify(product)}`);
-    res.send(await file.create(product));
+router.post('/products/', isAdmin(user.isAdmin), async (req: Request, res: Response) =>{
+    try {
+        const product = await new Product(req.body.title, req.body.description, req.body.code, req.body.price, req.body.image);
+        console.log(`Product: ${JSON.stringify(product)}`);
+        res.send(await file.create(product));
+    } catch (error) {
+        res.json(error); // One way of response
+    }
 })
 
 // Delete a product
-router.delete('/products/:id', async (req: Request, res: Response) =>{
-    const resultado = await file.delete(req.params.id);
-    res.json( resultado );
+router.delete('/products/:id', isAdmin(user.isAdmin), async (req: Request, res: Response) =>{
+    try {
+        const resultado = await file.delete(req.params.id);
+        res.json( resultado );
+    } catch (error) {
+        res.send(error) // One way of response
+    }
 });
 
 // Update a product
-router.put('/products/:id', async (req: Request, res: Response) =>{
+router.put('/products/:id', isAdmin(user.isAdmin), async (req: Request, res: Response) =>{
     try {
         const product = await new Product(req.body.title, req.body.description, req.body.code, req.body.price, req.body.image);
         product.id = req.params.id;
         res.send( await file.update(product));
     } catch (error) {
-        return error;
+        return error; // One way of response
     }
 });
 

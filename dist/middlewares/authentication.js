@@ -1,11 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function adminAuth(req, res, next) {
-    if (req.body.user.isAdmin) {
-        req.admin = true;
-        next();
-    }
-    else {
-        res.send('User is not admin');
-    }
-}
+const user = {
+    'nickname': 'Fede',
+    'admin': false
+};
+module.exports = function (options) {
+    return function (req, res, next) {
+        if (options.isAdmin === true) {
+            next();
+            return;
+        }
+        else {
+            res.send('User is not admin');
+        }
+    };
+};

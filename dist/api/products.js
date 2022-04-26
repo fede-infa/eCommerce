@@ -9,11 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const isAdmin = require('../middlewares/authentication');
 const express = require('express');
 const router = express.Router();
 const file = require('../models/file');
 const Product = require('../models/products');
-const errorList = require('../api/errors');
+const errorList = require('../utils/errors');
+const user = {
+    'name': 'testing',
+    'isAdmin': false
+};
 // JSON with all products
 router.get('/products', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const productList = yield file.read();
@@ -36,25 +41,35 @@ router.get('/products/:id', (req, res) => __awaiter(void 0, void 0, void 0, func
     }
 }));
 // Create a product
-router.post('/products/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const product = yield new Product(req.body.title, req.body.description, req.body.code, req.body.price, req.body.image);
-    console.log(`Product: ${JSON.stringify(product)}`);
-    res.send(yield file.create(product));
+router.post('/products/', isAdmin(user.isAdmin), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const product = yield new Product(req.body.title, req.body.description, req.body.code, req.body.price, req.body.image);
+        console.log(`Product: ${JSON.stringify(product)}`);
+        res.send(yield file.create(product));
+    }
+    catch (error) {
+        res.json(error); // One way of response
+    }
 }));
 // Delete a product
-router.delete('/products/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const resultado = yield file.delete(req.params.id);
-    res.json(resultado);
+router.delete('/products/:id', isAdmin(user.isAdmin), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const resultado = yield file.delete(req.params.id);
+        res.json(resultado);
+    }
+    catch (error) {
+        res.send(error); // One way of response
+    }
 }));
 // Update a product
-router.put('/products/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.put('/products/:id', isAdmin(user.isAdmin), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const product = yield new Product(req.body.title, req.body.description, req.body.code, req.body.price, req.body.image);
         product.id = req.params.id;
         res.send(yield file.update(product));
     }
     catch (error) {
-        return error;
+        return error; // One way of response
     }
 }));
 module.exports = router;

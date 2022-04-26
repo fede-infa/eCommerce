@@ -1,18 +1,18 @@
 import { NextFunction, Request, Response } from "express";
 
-declare global {
-  namespace Express {
-    interface Request {
-      admin: boolean;
-    }
-  }
+const user:{nickname:string, admin:boolean} = {
+  'nickname': 'Fede',
+  'admin': false
 }
 
-function adminAuth(req: Request, res:Response, next:NextFunction){
-    if(req.body.user.isAdmin){
-        req.admin = true;
-        next()
-    } else{
-        res.send('User is not admin');
+
+module.exports = function (options:{isAdmin: true}){
+  return function(req: Request, res:Response, next:NextFunction){
+    if(options.isAdmin === true){
+      next()
+      return;
+    } else {
+      res.send('User is not admin');
     }
-}
+  }
+};
