@@ -43,7 +43,7 @@ router.get('/cart/:id?', (req, res) => {
         res.send(error);
     }
 });
-router.delete('/cart/id', (req, res) => {
+router.delete('/cart/:id', (req, res) => {
     try {
         const product = Cart.deleteProduct(req.params.id);
         res.send(product);
