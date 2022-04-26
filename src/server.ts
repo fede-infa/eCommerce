@@ -24,12 +24,14 @@ server.on('error', (err: ErrorCallback) =>{
 // My modules
 const file = require('./models/file');
 const Product = require('./api/products');
+const Cart = require('./api/cart');
 
 // App config
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/public',express.static(__dirname + '/public')) //Setting public folder
 app.use('/api', Product); // Router API for products
+app.use('/api', Cart); // Router API for products
 app.set('view engine', 'ejs'); // EJS template engine
 
 // Index.html

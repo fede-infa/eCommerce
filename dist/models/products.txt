@@ -40,5 +40,14 @@
 		"price": "justAlink.com",
 		"stock": 9,
 		"id": 7
+	},
+	{
+		"title": "Product Postman",
+		"description": "Product description",
+		"code": "A200SLOE1",
+		"image": 29.99,
+		"price": "justAlink.com",
+		"stock": 6,
+		"id": 8
 	}
 ]

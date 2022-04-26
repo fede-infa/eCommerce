@@ -10,7 +10,7 @@ const errorList = require('../utils/errors');
 
 const user:{name: string, isAdmin: boolean} = {
     'name': 'testing',
-    'isAdmin': false
+    'isAdmin': true
 }
 
 // JSON with all products
@@ -35,7 +35,7 @@ router.get('/products/:id', async (req: Request, res: Response) =>{
 });
 
 // Create a product
-router.post('/products/', isAdmin(user.isAdmin), async (req: Request, res: Response) =>{
+router.post('/products/', isAdmin(user), async (req: Request, res: Response) =>{
     try {
         const product = await new Product(req.body.title, req.body.description, req.body.code, req.body.price, req.body.image);
         console.log(`Product: ${JSON.stringify(product)}`);
@@ -46,7 +46,7 @@ router.post('/products/', isAdmin(user.isAdmin), async (req: Request, res: Respo
 })
 
 // Delete a product
-router.delete('/products/:id', isAdmin(user.isAdmin), async (req: Request, res: Response) =>{
+router.delete('/products/:id', isAdmin(user), async (req: Request, res: Response) =>{
     try {
         const resultado = await file.delete(req.params.id);
         res.json( resultado );
@@ -56,7 +56,7 @@ router.delete('/products/:id', isAdmin(user.isAdmin), async (req: Request, res: 
 });
 
 // Update a product
-router.put('/products/:id', isAdmin(user.isAdmin), async (req: Request, res: Response) =>{
+router.put('/products/:id', isAdmin(user), async (req: Request, res: Response) =>{
     try {
         const product = await new Product(req.body.title, req.body.description, req.body.code, req.body.price, req.body.image);
         product.id = req.params.id;

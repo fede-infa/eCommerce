@@ -17,7 +17,7 @@ const Product = require('../models/products');
 const errorList = require('../utils/errors');
 const user = {
     'name': 'testing',
-    'isAdmin': false
+    'isAdmin': true
 };
 // JSON with all products
 router.get('/products', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -41,7 +41,7 @@ router.get('/products/:id', (req, res) => __awaiter(void 0, void 0, void 0, func
     }
 }));
 // Create a product
-router.post('/products/', isAdmin(user.isAdmin), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/products/', isAdmin(user), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const product = yield new Product(req.body.title, req.body.description, req.body.code, req.body.price, req.body.image);
         console.log(`Product: ${JSON.stringify(product)}`);
@@ -52,7 +52,7 @@ router.post('/products/', isAdmin(user.isAdmin), (req, res) => __awaiter(void 0,
     }
 }));
 // Delete a product
-router.delete('/products/:id', isAdmin(user.isAdmin), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.delete('/products/:id', isAdmin(user), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const resultado = yield file.delete(req.params.id);
         res.json(resultado);
@@ -62,7 +62,7 @@ router.delete('/products/:id', isAdmin(user.isAdmin), (req, res) => __awaiter(vo
     }
 }));
 // Update a product
-router.put('/products/:id', isAdmin(user.isAdmin), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.put('/products/:id', isAdmin(user), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const product = yield new Product(req.body.title, req.body.description, req.body.code, req.body.price, req.body.image);
         product.id = req.params.id;
