@@ -1,4 +1,4 @@
-class ProductFile{
+class myDB{
     fs = require('fs');
     file: string = '';
     constructor(file:string){
@@ -17,6 +17,7 @@ class ProductFile{
     async create(product:{title: string, price: number, thumbnail:string, id:number}){
         const products = await this.read();
         product.id = products[products.length -1].id + 1;
+        console.log(product);
         products.push(product);
         try{
             await this.fs.promises.writeFile(this.file, JSON.stringify(products, null, '\t'));
@@ -63,4 +64,4 @@ class ProductFile{
     }
 }
 
-module.exports = new ProductFile('products.txt');
+module.exports = new myDB('products.txt');

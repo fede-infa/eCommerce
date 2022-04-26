@@ -12,14 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Express
 const express = require('express');
 const app = express();
+require('dotenv').config();
 // Socket.io
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(server);
 // Server express
-const PORT = 8080;
-server.listen(PORT, () => console.log(`Server is up http://localhost:${PORT}`));
+const PORT = process.env.PORT || 8080;
+const HOST = process.env.HOST || 'localhost';
+server.listen(PORT, () => console.log(`Server is up http://${HOST}:${PORT}`));
 server.on('error', (err) => {
     console.log(`Error en el servidor: ${err}`);
 });
@@ -39,13 +41,13 @@ app.get('/', (req, res) => {
 // Products table
 app.get('/products/view', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const productList = yield file.read();
-    console.log(file);
+    console.log(productList);
     res.render(`${__dirname}/views/products`, { products: productList });
 }));
 // Socket connection
 const listMessages = [];
 io.on('connection', (socket) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('User connected');
+    console.log('User connected via WebSocket');
     const products = yield file.read();
     io.sockets.emit('productList', products);
     // Chat feature

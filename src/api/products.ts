@@ -31,7 +31,8 @@ router.get('/products/:id', async (req: Request, res: Response) =>{
 
 // Create a product
 router.post('/products/', async (req: Request, res: Response) =>{
-    const product = await new Product(req.body.title, req.body.price, req.body.thumbnail);
+    const product = await new Product(req.body.title, req.body.description, req.body.code, req.body.price, req.body.image);
+    console.log(`Product: ${JSON.stringify(product)}`);
     res.send(await file.create(product));
 })
 
@@ -44,7 +45,7 @@ router.delete('/products/:id', async (req: Request, res: Response) =>{
 // Update a product
 router.put('/products/:id', async (req: Request, res: Response) =>{
     try {
-        const product = await new Product(req.body.title, req.body.price, req.body.thumbnail);
+        const product = await new Product(req.body.title, req.body.description, req.body.code, req.body.price, req.body.image);
         product.id = req.params.id;
         res.send( await file.update(product));
     } catch (error) {

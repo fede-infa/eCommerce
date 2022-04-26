@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-class ProductFile {
+class myDB {
     constructor(file) {
         this.fs = require('fs');
         this.file = '';
@@ -29,6 +29,7 @@ class ProductFile {
         return __awaiter(this, void 0, void 0, function* () {
             const products = yield this.read();
             product.id = products[products.length - 1].id + 1;
+            console.log(product);
             products.push(product);
             try {
                 yield this.fs.promises.writeFile(this.file, JSON.stringify(products, null, '\t'));
@@ -80,4 +81,4 @@ class ProductFile {
         });
     }
 }
-module.exports = new ProductFile('products.txt');
+module.exports = new myDB('products.txt');

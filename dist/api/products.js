@@ -37,7 +37,8 @@ router.get('/products/:id', (req, res) => __awaiter(void 0, void 0, void 0, func
 }));
 // Create a product
 router.post('/products/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const product = yield new Product(req.body.title, req.body.price, req.body.thumbnail);
+    const product = yield new Product(req.body.title, req.body.description, req.body.code, req.body.price, req.body.image);
+    console.log(`Product: ${JSON.stringify(product)}`);
     res.send(yield file.create(product));
 }));
 // Delete a product
@@ -48,7 +49,7 @@ router.delete('/products/:id', (req, res) => __awaiter(void 0, void 0, void 0, f
 // Update a product
 router.put('/products/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const product = yield new Product(req.body.title, req.body.price, req.body.thumbnail);
+        const product = yield new Product(req.body.title, req.body.description, req.body.code, req.body.price, req.body.image);
         product.id = req.params.id;
         res.send(yield file.update(product));
     }
