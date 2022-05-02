@@ -14,7 +14,6 @@ const ProductService = require('../services/product');
 const product = new ProductService();
 const createProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log('req body de createProduct', req.body);
         const newProduct = yield product.createProduct(req.body);
         res.json({
             msg: 'Product created',
@@ -31,7 +30,7 @@ const createProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, func
 exports.createProduct = createProduct;
 const findAll = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const allProducts = yield product.findAll();
+        const allProducts = yield product.getAllProduct();
         res.json(allProducts);
     }
     catch (error) {
