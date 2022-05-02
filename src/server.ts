@@ -1,9 +1,11 @@
-import { Request, Response} from "express"; // Required for TS
+/* import { Request, Response} from "express"; // Required for TS
 import { Socket } from "socket.io"; // Required for TS
 
 // Express
 const express = require('express');
 const app = express(); 
+const cors = require('cors');
+const compression = require('compression');
 require('dotenv').config();
 
 // Socket.io
@@ -58,4 +60,32 @@ io.on('connection', async (socket: Socket) =>{
         listMessages.push(data);
         io.sockets.emit('chat:messages', listMessages);
     });
-});
+}); */
+
+
+/* NEW SETUP */
+
+// Dependencies required for TS
+import { Socket } from "socket.io";
+
+// Server setup
+const express = require('express');
+const cors = require('cors'); 
+const compression = require('compression');
+const app = express();
+
+const routes = require('./routes/routes');
+const router = express.Router();
+
+
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require('socket.io')
+const io = new Server(server);
+
+app.use(routes(router));
+app.use(express.json());
+app.use(cors());
+app.use(compression());
+
+module.exports = { io, server};

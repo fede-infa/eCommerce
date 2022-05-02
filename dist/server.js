@@ -1,60 +1,81 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", { value: true });
+/* import { Request, Response} from "express"; // Required for TS
+import { Socket } from "socket.io"; // Required for TS
+
 // Express
 const express = require('express');
 const app = express();
+const cors = require('cors');
+const compression = require('compression');
 require('dotenv').config();
+
 // Socket.io
 const http = require('http');
 const server = http.createServer(app);
-const { Server } = require('socket.io');
+const { Server } = require('socket.io')
 const io = new Server(server);
+
 // Server express
 const PORT = process.env.PORT || 8080;
-const HOST = process.env.HOST || 'localhost';
+const HOST = process.env.HOST || 'localhost'
 server.listen(PORT, () => console.log(`Server is up http://${HOST}:${PORT}`));
-server.on('error', (err) => {
-    console.log(`Error en el servidor: ${err}`);
+
+server.on('error', (err: ErrorCallback) =>{
+    console.log(`Error en el servidor: ${err}`)
 });
+
 // My modules
 const file = require('./models/file');
 const Product = require('./api/products');
 const Cart = require('./api/cart');
+
 // App config
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/public', express.static(__dirname + '/public')); //Setting public folder
+app.use('/public',express.static(__dirname + '/public')) //Setting public folder
 app.use('/api', Product); // Router API for products
 app.use('/api', Cart); // Router API for products
 app.set('view engine', 'ejs'); // EJS template engine
+
 // Index.html
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) =>{
     res.render(`${__dirname}/views/index`);
 });
+
 // Products table
-app.get('/products/view', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const productList = yield file.read();
+app.get('/products/view', async(req: Request, res: Response) =>{
+    const productList = await file.read();
     console.log(productList);
-    res.render(`${__dirname}/views/products`, { products: productList });
-}));
+    res.render(`${__dirname}/views/products`, {products: productList});
+});
+
 // Socket connection
-const listMessages = [];
-io.on('connection', (socket) => __awaiter(void 0, void 0, void 0, function* () {
+const listMessages:Array<object> = [];
+io.on('connection', async (socket: Socket) =>{
     console.log('User connected via WebSocket');
-    const products = yield file.read();
+    const products = await file.read();
     io.sockets.emit('productList', products);
+
     // Chat feature
-    socket.on('chat:new-message', (data) => {
+    socket.on('chat:new-message', (data) =>{
         listMessages.push(data);
         io.sockets.emit('chat:messages', listMessages);
     });
-}));
+}); */
+Object.defineProperty(exports, "__esModule", { value: true });
+// Server setup
+const express = require('express');
+const cors = require('cors');
+const compression = require('compression');
+const app = express();
+const routes = require('./routes/routes');
+const router = express.Router();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require('socket.io');
+const io = new Server(server);
+app.use(routes(router));
+app.use(express.json());
+app.use(cors());
+app.use(compression());
+module.exports = { io, server };
