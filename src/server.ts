@@ -70,12 +70,12 @@ import { Socket } from "socket.io";
 
 // Server setup
 const express = require('express');
-const cors = require('cors'); 
+const cors = require('cors');
 const compression = require('compression');
-const app = express();
-
 const routes = require('./routes/routes');
+
 const router = express.Router();
+const app = express();
 
 
 const http = require('http');
@@ -83,9 +83,10 @@ const server = http.createServer(app);
 const { Server } = require('socket.io')
 const io = new Server(server);
 
-app.use(routes(router));
 app.use(express.json());
 app.use(cors());
 app.use(compression());
+
+app.use(routes(router))
 
 module.exports = { io, server};
