@@ -5,8 +5,7 @@ const CartService = require('../services/cart');
 const cart = new CartService();
 const addProduct = (req, res, next) => {
     try {
-        const productToAdd = req.product;
-        cart.addProduct(productToAdd);
+        cart.addProduct(req.body);
         res.json(cart);
     }
     catch (error) {
@@ -25,7 +24,7 @@ const getCart = (req, res, next) => {
 exports.getCart = getCart;
 const deleteProduct = (req, res, next) => {
     try {
-        const product = cart.deleteProduct(req.params.id);
+        const product = cart.deleteProduct(Number(req.params.productid));
         res.json(product);
     }
     catch (error) {

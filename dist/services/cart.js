@@ -3,7 +3,7 @@ class Cart {
     constructor() {
         this.id = 0;
         this.id++,
-            this.timestamp = Date.now().toLocaleString(),
+            this.timestamp = new Date().toLocaleString('en-GB'),
             this.cartList = [];
     }
     getNextId() {
@@ -12,7 +12,7 @@ class Cart {
     addProduct(newProduct) {
         const cartProduct = {
             id: this.getNextId(),
-            timestamp: Date.now().toLocaleString,
+            timestamp: Date.now().toLocaleString(),
             product: newProduct
         };
         this.cartList.push(cartProduct);
@@ -30,6 +30,8 @@ class Cart {
         try {
             let cart = this.list();
             const indexToDelete = cart.findIndex((cartProduct) => cartProduct.id == id);
+            console.log(`id to delete ${id}`);
+            console.log(`indexToDelete ${indexToDelete}`);
             const deletedProduct = cart[indexToDelete];
             cart = cart.filter((cartProduct) => cartProduct.id != id);
             if (deletedProduct) {
