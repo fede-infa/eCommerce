@@ -1,4 +1,4 @@
-
+/* 
 class Cart{
     id: number = 0;
     timestamp: string;
@@ -52,4 +52,4 @@ class Cart{
     }
 }
 
-module.exports = new Cart()
+module.exports = new Cart() */

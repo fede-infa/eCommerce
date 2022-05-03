@@ -77,7 +77,6 @@ const routes = require('./routes/routes');
 const router = express.Router();
 const app = express();
 
-
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require('socket.io')
@@ -87,6 +86,7 @@ app.use(express.json());
 app.use(cors());
 app.use(compression());
 
-app.use(routes(router))
+app.use(routes.product(router))
+app.use(routes.cart(router))
 
 module.exports = { io, server};

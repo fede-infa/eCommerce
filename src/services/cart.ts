@@ -1,5 +1,4 @@
-"use strict";
-/*
+
 class Cart{
     id: number = 0;
     timestamp: string;
@@ -16,11 +15,11 @@ class Cart{
     }
 
 
-    addProduct(newProduct:{id: number, timestamp: string, title: string, description: string, code: string, image: string, price: number, stock: number }):{}{
+    addProduct(newProduct:{id: number, timestamp: string, title: string, description: string, code: string, image: string, price: number}):{}{
         const cartProduct = {
             id: this.getNextId(),
             timestamp: Date.now().toLocaleString,
-            product: newProduct
+            product: newProduct 
         }
         this.cartList.push(cartProduct);
         return cartProduct;
@@ -37,7 +36,7 @@ class Cart{
     deleteProduct(id: number){
         try {
             let cart = this.list();
-            const indexToDelete = cart.findIndex( (cartProduct: {id: number, timestamp: string, title: string, description: string, code: string, image: string, price: number, stock: number }) => cartProduct.id == id);
+            const indexToDelete = cart.findIndex( (cartProduct: {id: number, timestamp: string, title: string, description: string, code: string, image: string, price: number}) => cartProduct.id == id);
             const deletedProduct = cart[indexToDelete];
             cart = cart.filter( (cartProduct: any) => cartProduct.id != id);
             
@@ -53,4 +52,4 @@ class Cart{
     }
 }
 
-module.exports = new Cart() */ 
+module.exports = Cart;

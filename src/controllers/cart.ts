@@ -1,49 +1,29 @@
-import {Request, Response} from 'express';
+const CartService = require('../services/cart');
+const cart = new CartService();
 
-const express = require('express');
-const router = express.Router();
-
-const file = require('../models/file');
-const Product = require('../models/products');
-const Cart = require('../models/cart');
-const errorList = require('../api/errors');
-
-// router.get('/cart', (req, res) =>{
-    
-// });
-
-router.get('/cart/add/:id', async (req: Request, res: Response) =>{
+export const addProduct = (req, res, next) =>{
     try {
-        const productList = await file.read();
-        const indexProduct = productList.findIndex((product:{id: number}) => product.id === Number(req.params.id));
-        Cart.addProduct(productList[indexProduct]);
-        res.json(Cart);
+        const productToAdd = req.product;
+        cart.addProduct(productToAdd)
+        res.json(cart)
     } catch (error) {
-        res.send(error);
+        res.json(error);
     }
-});
+}
 
-router.get('/cart/:id?', (req: Request, res: Response) =>{
+export const getCart = (req, res, next) =>{
     try {
-        if(req.params.id){
-            const product = Cart.list(req.params.id);
-            res.json(product);
-        } else{
-            const cart = Cart.list();
-            res.json(cart);
-        }
+        res.json(cart);
     } catch (error) {
-        res.send(error);
+        res.json(error)
     }
-})
+}
 
-router.delete('/cart/:id', (req: Request, res: Response) =>{
+export const deleteProduct = (req, res, next) =>{
     try {
-        const product = Cart.deleteProduct(req.params.id);
-        res.send(product);
+        const product = cart.deleteProduct(req.params.id);
+        res.json(product);
     } catch (error) {
-        return error;
+        res.json(error)
     }
-})
-
-module.exports = router;
+}
