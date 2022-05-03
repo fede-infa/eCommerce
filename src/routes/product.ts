@@ -1,4 +1,4 @@
-/* const productController = require('../controllers/product');
+const productController = require('../controllers/product');
 
 export = (router) =>{
     router
@@ -8,12 +8,4 @@ export = (router) =>{
     .patch('/api/v1/product/:productid', productController.updateProduct)
     .delete('/api/v1/product/:productid', productController.deleteProduct)
     return router;
-} */
-
-const productRouter = require('./product');
-const cartRouter = require('./cart');
-
-export = {
-    product: productRouter,
-    cart: cartRouter
 }
