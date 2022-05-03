@@ -37,8 +37,6 @@ class Cart{
         try {
             let cart = this.list();
             const indexToDelete = cart.findIndex( (cartProduct: {id: number}) => cartProduct.id == id);
-            console.log(`id to delete ${id}`);
-            console.log(`indexToDelete ${indexToDelete}`);
             const deletedProduct = cart[indexToDelete];
             cart = cart.filter( (cartProduct: any) => cartProduct.id != id);
             
