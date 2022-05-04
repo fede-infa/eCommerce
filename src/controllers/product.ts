@@ -2,6 +2,7 @@ const ProductService = require('../services/product');
 const product = new ProductService();
 
 export const createProduct = async(req, res, next) => {
+    console.log(req.params);
     try {
         const newProduct = await product.createProduct(req.body);
         res.json({

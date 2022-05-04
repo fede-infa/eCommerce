@@ -13,6 +13,7 @@ exports.deleteProduct = exports.updateProduct = exports.getOne = exports.findAll
 const ProductService = require('../services/product');
 const product = new ProductService();
 const createProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.params);
     try {
         const newProduct = yield product.createProduct(req.body);
         res.json({
