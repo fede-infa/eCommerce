@@ -1,25 +1,43 @@
 
-<h1 class="lead">Insert a product </h1>
+<h1 class="display-4 text-center">Insert a product </h1>
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <form action="/api/products" method="post">
+            <form action="/api/v1/product" method="post">
             <div class="form-group row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
+                <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
                 <div class="col-sm-10">
-                <input type="text" class="form-control" id="title" name="title" placeholder="Nombre" required/>
+                <input type="text" class="form-control" id="title" name="title" placeholder="..." required/>
                 </div>
             </div>
             <div class="form-group row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Price</label>
+                <label for="inputDescription" class="col-sm-2 col-form-label">Description</label>
                 <div class="col-sm-10">
-                <input type="number" class="form-control" id="price" name="price" step="0.01" placeholder="Precio" required/>
+                <input type="text" class="form-control" id="description" name="description" placeholder=""/>
                 </div>
             </div>
             <div class="form-group row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Image URL</label>
+                <label for="inputCode" class="col-sm-2 col-form-label">Code</label>
                 <div class="col-sm-10">
-                <input type="text" class="form-control" id="thumbnail" name="thumbnail" placeholder="http://url.com/producto.jpg" required/>
+                <input type="text" class="form-control" id="code" name="code" placeholder=""/>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <label for="inputPrice" class="col-sm-2 col-form-label">Price</label>
+                <span class="input-group-text">€</span>
+                <span class="input-group-text">0.00</span>
+                <input type="number" class="form-control" id="price" name="price" step="0.01" placeholder="" required>
+            </div>
+            <div class="form-group row mb-3">
+                <label for="inputStock" class="col-sm-2 col-form-label">Stock</label>
+                <div class="col-sm-10">
+                <input type="number" class="form-control" id="price" name="price" step="1" min="1" max="10000" placeholder="" required/>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label for="inputImage" class="col-sm-2 col-form-label">Image URL</label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control" id="thumbnail" name="thumbnail" placeholder="http://url.com/product.jpg" required/>
                 </div>
             </div>
             <div>
