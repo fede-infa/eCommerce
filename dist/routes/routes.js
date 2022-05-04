@@ -12,7 +12,9 @@ export = (router) =>{
 } */
 const productRouter = require('./product');
 const cartRouter = require('./cart');
+const viewsRouter = require('./views');
 module.exports = {
     product: productRouter,
-    cart: cartRouter
+    cart: cartRouter,
+    views: viewsRouter
 };
