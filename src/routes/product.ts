@@ -1,6 +1,8 @@
+import { Router } from "express";
+
 const productController = require('../controllers/product');
 
-export = (router) =>{
+export = (router: Router) =>{
     router
     .post('/api/v1/product', productController.createProduct)
     .get('/api/v1/product/:productid', productController.getOne)

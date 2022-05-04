@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
+import { Request, Response, Router } from "express";
 
-export = (router) =>{
+export = (router: Router) =>{
     router.get('/', (req: Request, res: Response) => {
         res.render(`${__dirname}/../views/index`);
     })

@@ -17,12 +17,9 @@ getConnection()
     })
     .then( () =>{
         io.on('connection', async (socket:Socket) =>{
-            console.log('User connected via WebSocket');
-            const products = {title: 'hardcode title'};
-            io.sockets.emit('productList', products);
-
+            console.log('WebSocket connection successful');
             //chat feature
-            socket.on('chat:new-message', (data) =>{
+            socket.on('chat:new-message', (data: {userEmail:string, userMessageDate:string, userMessage:string}) =>{
                 listMessages.push(data);
                 io.sockets.emit('chat:messages', listMessages);
             })

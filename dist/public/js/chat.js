@@ -1,6 +1,5 @@
 
 function renderMessages(data){
-    console.log(data);
     let html = data.map( msg =>{
         return(`<div>
                 <b style="color: blue;">${msg.userEmail}</b>
@@ -8,7 +7,6 @@ function renderMessages(data){
                 <i style="color: green;">${msg.userMessage}</i>
                 </div>`)
     }).join(' ');
-    console.log(html);
     document.querySelector('#chat').innerHTML = html;
 }
 
