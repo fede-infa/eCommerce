@@ -2,7 +2,7 @@ const productModel = require('../dao/models/product');
 
 export = class {
 
-    async createProduct(product){
+    async createProduct(product:{title:string, description:string, code:string, price:number, stock:number, image:string}){
         return productModel.create(product);
     }
     
