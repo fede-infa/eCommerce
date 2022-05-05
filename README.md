@@ -12,3 +12,4 @@ For the backend the project uses different libraries
 - Express - Framework to Node.js
 - Mongoose - ODM to MongoDB
 - Nodemon - Server in watch mode
+- Jest - for unit testing
