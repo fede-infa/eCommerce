@@ -14,7 +14,6 @@ const ChatService = require('../services/chat');
 const chat = new ChatService();
 const addMessage = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log('Im chat controller.addMessage()');
         const newMessage = yield chat.createMessage(req.body);
         res.json({
             status: 'OK',
@@ -22,7 +21,6 @@ const addMessage = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         });
     }
     catch (error) {
-        console.log('Im in the catch chatController');
         res.json(error);
     }
 });

@@ -10,7 +10,7 @@ export = class {
     }
 
     async getAllMessage(){
-        return chatModel.create();
+        return chatModel.find();
     }
 
     async updateMessage(id, message){

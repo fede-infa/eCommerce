@@ -3,14 +3,12 @@ const chat = new ChatService();
 
 export const addMessage = async (req, res, next) =>{
     try {
-        console.log('Im chat controller.addMessage()');
         const newMessage = await chat.createMessage(req.body);
         res.json({
             status: 'OK',
             data: newMessage
         })
     } catch (error) {
-        console.log('Im in the catch chatController'); 
         res.json(error);
     }
 }

@@ -1,6 +1,7 @@
 import { Schema, Types, model, Model } from 'mongoose';
 
-/* //Subdocument definition
+// ------ With subdocument ------ Documentation ==> https://mongoosejs.com/docs/typescript/subdocuments.html
+//Subdocument definition
 interface Iauthor extends Document{
     id: string,
     first_name: string,
@@ -16,8 +17,14 @@ interface Ichat extends Document{
     message: string
 }
 
-type ChatModelSchema = Model<Ichat>;
-const chatSchema = new Schema<Ichat, ChatModelSchema>({
+// Models and schemas
+// Define property overrides for hydrated documents
+type ChatDocumentOverrides = {
+  names: Types.Subdocument<Types.ObjectId> & Iauthor;
+};
+type ChatModelType = Model<Ichat, {}, ChatDocumentOverrides>;
+
+const chatSchema = new Schema<Ichat, ChatModelType>({
     author: new Schema<Iauthor>({
             id: String,
             first_name: String,
@@ -27,28 +34,6 @@ const chatSchema = new Schema<Ichat, ChatModelSchema>({
             avatar: String
         }),
     message: String
-}, {timestamps: true}) */
-
-//Document definition
-interface Ichat extends Document{
-    id: string,
-    first_name: string,
-    last_name: string,
-    age: number,
-    user_name: string,
-    avatar: string,
-    message: string 
-}
-
-type ChatModelSchema = Model<Ichat>;
-const chatSchema = new Schema<Ichat, ChatModelSchema>({
-    id: String,
-    first_name: String,
-    last_name: String,
-    age: Number,
-    user_name: String,
-    avatar: String,
-    message: String
 }, {timestamps: true})
 
-export = model<Ichat, ChatModelSchema>('chat', chatSchema);
+export = model<Ichat, ChatModelType>('chat', chatSchema);

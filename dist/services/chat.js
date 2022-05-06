@@ -22,7 +22,7 @@ module.exports = class {
     }
     getAllMessage() {
         return __awaiter(this, void 0, void 0, function* () {
-            return chatModel.create();
+            return chatModel.find();
         });
     }
     updateMessage(id, message) {
