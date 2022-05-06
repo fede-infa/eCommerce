@@ -1,4 +1,4 @@
-const chatController = require('../controllers/message');
+const chatController = require('../controllers/chat');
 
 export = (router) =>{
     router
@@ -7,4 +7,5 @@ export = (router) =>{
     .post('/api/v1/chat', chatController.addMessage)
     .patch('/api/v1/chat/:id', chatController.updateMessage)
     .delete('/api/v1/chat/:id', chatController.deleteMessage)
+    return router;
 }

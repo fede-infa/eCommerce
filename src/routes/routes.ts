@@ -19,5 +19,5 @@ export = {
     product: productRouter,
     cart: cartRouter,
     views: viewsRouter,
-    message: chatRouter
+    chat: chatRouter
 }
