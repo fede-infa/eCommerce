@@ -14,7 +14,7 @@ interface Imessage extends Document{
     message: string
 }
 
-const messageSchema: SchemaType = new Schema({
+const chat: SchemaType = new Schema({
     author: {
         id: String,
         first_name: String,
@@ -26,4 +26,4 @@ const messageSchema: SchemaType = new Schema({
     message: String
 })
 
-export = model('message', messageSchema);
+export = model('chat', chat);

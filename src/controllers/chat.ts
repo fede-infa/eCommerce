@@ -1,9 +1,9 @@
-const MessageService = require('../services/message');
-const message = new MessageService();
+const ChatService = require('../services/chat');
+const chat = new ChatService();
 
 export const addMessage = async (req, res, next) =>{
     try {
-        const newMessage = await message.createMessage(req.body);
+        const newMessage = await chat.createMessage(req.body);
         res.json({
             status: 'OK',
             data: newMessage
@@ -13,9 +13,9 @@ export const addMessage = async (req, res, next) =>{
     }
 }
 
-export const findAll = async (req, res, next) =>{
+export const findAllMessage = async (req, res, next) =>{
     try {
-        const allMessages = await message.findAll();
+        const allMessages = await chat.getAllMessage();
         res.json(allMessages);
     } catch (error) {
         res.json({
@@ -25,10 +25,10 @@ export const findAll = async (req, res, next) =>{
     }
 }
 
-export const getOne = async(req, res, next) =>{
+export const getOneMessage = async(req, res, next) =>{
     try {
         const {params: {id}} = req;
-        const messageRetrieved = await message.getOne(id);
+        const messageRetrieved = await chat.getMessage(id);
         res.json(messageRetrieved);
     } catch (error) {
         res.json({
@@ -44,7 +44,7 @@ export const updateMessage = async(req, res, next) =>{
             body,
             params: {id}
         } = req;
-        const updatedMessage = await message.updateMessage(id, body);
+        const updatedMessage = await chat.updateMessage(id, body);
         res.json(updatedMessage);
     } catch (error) {
         res.json({
@@ -57,7 +57,7 @@ export const updateMessage = async(req, res, next) =>{
 export const deleteMessage = async(req, res, next) =>{
     try {
         const {params: {id}} = req;
-        await message.deleteMessage(id);
+        await chat.deleteMessage(id);
         res.json({
             status: 'OK',
             msg: 'Message deleted'
