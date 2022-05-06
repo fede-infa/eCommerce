@@ -83,4 +83,5 @@ app.set('view engine', 'ejs'); // EJS template engine
 app.use(routes.product(router));
 app.use(routes.cart(router));
 app.use(routes.views(router));
+app.use(routes.chat(router));
 module.exports = { io, server };

@@ -13,8 +13,10 @@ export = (router) =>{
 const productRouter = require('./product');
 const cartRouter = require('./cart');
 const viewsRouter = require('./views');
+const chatRouter = require('./chat');
 module.exports = {
     product: productRouter,
     cart: cartRouter,
-    views: viewsRouter
+    views: viewsRouter,
+    chat: chatRouter
 };

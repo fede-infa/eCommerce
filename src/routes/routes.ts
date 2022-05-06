@@ -13,9 +13,11 @@ export = (router) =>{
 const productRouter = require('./product');
 const cartRouter = require('./cart');
 const viewsRouter = require('./views');
+const chatRouter = require('./chat');
 
 export = {
     product: productRouter,
     cart: cartRouter,
-    views: viewsRouter
+    views: viewsRouter,
+    chat: chatRouter
 }

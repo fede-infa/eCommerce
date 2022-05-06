@@ -1,5 +1,5 @@
 "use strict";
-const { model, Schema, Model } = require('mongoose');
+const { model, Schema } = require('mongoose');
 // 2. Create a Schema corresponding to the document interface.
 const productSchema = new Schema({
     title: { type: String, required: true },
@@ -8,5 +8,5 @@ const productSchema = new Schema({
     image: String,
     price: { type: Number, required: true },
     stock: { type: Number, required: true }
-});
+}, { timestamps: true });
 module.exports = model('product', productSchema);
