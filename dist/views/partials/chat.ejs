@@ -1,10 +1,48 @@
 
 <div class="container">
-    <form onsubmit="return addMessage(this)">
-        Email: <input type="text" name="userEmail" id="userEmail" placeholder="Email...">
+    <!-- <form onsubmit="return addMessage(this)">
+        <p>Personal data</p>
+        Username: <input type="text" name="username" id="username" placeholder="">
+        First name: <input type="text" name="first_name" id="first_name" placeholder="">
+        Last name: <input type="text" name="last_name" id="last_name" placeholder="">
+        Age: <input type="text" name="age" id="age" placeholder="">
+        Email: <input type="text" name="userEmail" id="userEmail" placeholder="">
         Message: <input type="text" name="userMessage" id="userMessage" placeholder="Message...">
         <input type="submit" value="Send">
+    </form> -->
+    <form onsubmit="return addMessage(this)">
+        <div class="row">
+            <div class="col-4" style="background-color: gray;">
+    
+                <div class="input-group mb-3 mt-2">
+                    <span class="input-group-text" id="basic-addon1">@</span>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" name="username"
+                        id="username">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Email" aria-label="Email" name="email" id="email">
+                    <span class="input-group-text" id="basic-addon2">@example.com</span>
+                </div>
+    
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First name">
+                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last name">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="age" id="age" placeholder="Age">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text mb-2">Message</span>
+                    <textarea class="form-control mb-2" name="message" id="message" aria-label="With textarea"></textarea>
+                </div>
+                <input type="submit" value="Send" class="btn btn-primary btn-lg mb-2">
+            </div>
+            <div class="col" id="chat-window">
+
+            </div>
+        </div>
     </form>
-    <div id="chat"></div>
 </div>
 <script src="/public/js/chat.js"></script>
+
+
