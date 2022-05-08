@@ -13,7 +13,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const { PORT } = require('./config/globals');
 const { getConnection } = require('./dao/db/connection');
 const { io, server } = require('./server');
+const Chat = require('./services/chat');
 const listMessages = [];
+let messages = new Chat();
 // Connection to DB, then to server, then socket connection
 getConnection()
     .then((result) => {
@@ -25,11 +27,12 @@ getConnection()
     .then(() => {
     io.on('connection', (socket) => __awaiter(void 0, void 0, void 0, function* () {
         console.log('WebSocket connection successful');
+        io.sockets.emit('chat:messages', yield messages.getAllMessage());
         //chat feature
-        socket.on('chat:new-message', (data) => {
-            listMessages.push(data);
-            io.sockets.emit('chat:messages', listMessages);
-        });
+        socket.on('chat:new-message', (data) => __awaiter(void 0, void 0, void 0, function* () {
+            yield messages.createMessage(data);
+            io.sockets.emit('chat:messages', yield messages.getAllMessage());
+        }));
     }));
 })
     .catch((error) => console.log(error));

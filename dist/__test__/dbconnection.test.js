@@ -8,23 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const mongoose = require('mongoose');
-const { MONGO_URI, MONGODB_URL } = require('../../config/globals');
-exports.getConnection = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield mongoose.connect(MONGODB_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        return {
-            status: 'OK',
-            msg: 'Connection success'
-        };
-    }
-    catch (error) {
-        return {
-            status: 'ERROR',
-            msg: error
-        };
-    }
+const { getConnection } = require('../dao/db/connection');
+const collection = 'jest_user';
+describe('Testing of connection to DB', () => {
+    it('Should return status: OK when connected to DB', () => __awaiter(void 0, void 0, void 0, function* () {
+        expect(yield getConnection()).toMatchObject({ status: 'OK' });
+    }));
 });

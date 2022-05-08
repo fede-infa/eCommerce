@@ -7,6 +7,7 @@ const chatSchema = new mongoose_1.Schema({
         last_name: String,
         age: Number,
         user_name: String,
+        email: String,
         avatar: String
     }),
     message: String

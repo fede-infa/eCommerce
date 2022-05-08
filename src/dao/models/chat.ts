@@ -8,6 +8,7 @@ interface Iauthor extends Document{
     last_name: string,
     age: number,
     user_name: string,
+    email: string,
     avatar: string,
 }
 
@@ -31,6 +32,7 @@ const chatSchema = new Schema<Ichat, ChatModelType>({
             last_name: String,
             age: Number,
             user_name: String,
+            email: String,
             avatar: String
         }),
     message: String
