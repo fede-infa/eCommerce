@@ -8,7 +8,7 @@ function renderMessages(data){
                 <i style="color: green;">${msg.message}</i>
                 </div>`)
     }).join(' ');
-    document.querySelector('#chat').innerHTML = html;
+    document.querySelector('#chat-window').innerHTML = html;
 }
 
 function addMessage(e){
@@ -25,8 +25,8 @@ function addMessage(e){
     
     socket.emit('chat:new-message', message);
 
-    chatMessage.value = '';
-    chatMessage.focus();
+    document.querySelector('#message').value = '';
+    document.querySelector('#message').focus();
 
     return false;
 }

@@ -20,6 +20,7 @@ getConnection()
     .then( () =>{
         io.on('connection', async (socket:Socket) =>{
             console.log('WebSocket connection successful');
+            io.sockets.emit('chat:messages', await messages.getAllMessage());
             //chat feature
             socket.on('chat:new-message', async (data: {userEmail:string, userMessageDate:string, userMessage:string}) =>{
                 await messages.createMessage(data);
