@@ -6,7 +6,6 @@ const { getConnection } = require('./dao/db/connection');
 const {io, server} = require('./server');
 const Chat = require('./services/chat');
 
-const listMessages:{}[] = [];
 let messages = new Chat();
 
 // Connection to DB, then to server, then socket connection
