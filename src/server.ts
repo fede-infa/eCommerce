@@ -87,12 +87,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(compression());
 
-app.use('/public',express.static(__dirname + '/public')) //Setting public folder
+/* app.use('/public',express.static(__dirname + '/public')) //Setting public folder */
+app.use('/public',express.static(__dirname + '/public')); //Setting public folder
 app.set('view engine', 'ejs'); // EJS template engine
 
-app.use(routes.product(router))
-app.use(routes.cart(router))
-app.use(routes.views(router))
-app.use(routes.chat(router))
+app.use(routes.product(router));
+app.use(routes.cart(router));
+app.use(routes.views(router));
+app.use(routes.chat(router));
 
 module.exports = { io, server};

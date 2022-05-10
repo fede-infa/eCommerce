@@ -78,6 +78,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(compression());
+/* app.use('/public',express.static(__dirname + '/public')) //Setting public folder */
 app.use('/public', express.static(__dirname + '/public')); //Setting public folder
 app.set('view engine', 'ejs'); // EJS template engine
 app.use(routes.product(router));
