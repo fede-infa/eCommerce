@@ -1,6 +1,5 @@
 
 function renderMessages(data){
-    console.log(data);
     let html = data.map( msg =>{
         return(`<div>
                 <b style="color: blue;">${msg.author.user_name}</b>

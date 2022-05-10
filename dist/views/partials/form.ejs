@@ -2,7 +2,8 @@
 <h1 class="display-4 text-center">Insert a product </h1>
 <div class="container">
     <div class="row">
-        <div class="col-6">
+        <!-- Form create a product -->
+        <div class="col-6 mb-3">
             <form action="/api/v1/product" method="post">
             <div class="form-group row mb-3">
                 <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
@@ -41,9 +42,28 @@
                 </div>
             </div>
             <div>
-                <button type="submit" class="btn btn-primary btn-lg"> Send </button>
+                <button type="submit" class="btn btn-primary"> Create product </button>
             </div>
             </form>
+        </div>
+
+
+        <!-- Table product list -->
+        <div class="col-6">
+            <!-- <h1>Product list</h1> -->
+            
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Code</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Stock</th>
+                    </tr>
+                </thead>
+                <tbody id="product-table"> </tbody>
+            </table>
+
         </div>
     </div>
 </div>

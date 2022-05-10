@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
-<%- include('./partials/header.ejs'); %>
+    <!-- Include HTML header with all the CDN & scripts -->
+    <%- include('./partials/header.ejs'); %>
 
     <body>
-        <%- include('./partials/navbar.ejs'); %>
-            <%- include('./partials/form.ejs'); %>
-
-    
+        <!--  JS scripts files-->
         <%- include('./partials/footer.ejs'); %>
+
+        <!-- Include navbar -->
+        <%- include('./partials/navbar.ejs'); %>
+
+        <!-- Include product form & product list -->
+        <%- include('./partials/form.ejs'); %>
+
+        <!-- Include chat feature -->
         <%- include('./partials/chat.ejs'); %>
+
+        <!-- <script src="/socket.io/socket.io.js"></script> -->
+        <!-- <script src="/public/js/index.js"></script> -->
+
+       
 
     </body>
 </html>

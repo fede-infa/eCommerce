@@ -27,8 +27,10 @@ getConnection()
     .then(() => {
     io.on('connection', (socket) => __awaiter(void 0, void 0, void 0, function* () {
         console.log('WebSocket connection successful');
+        /* PRODUCT LIST FEATURE */
+        socket.emit('productList', []);
+        /* CHAT FEATURE */
         io.sockets.emit('chat:messages', yield messages.getAllMessage());
-        //chat feature
         socket.on('chat:new-message', (data) => __awaiter(void 0, void 0, void 0, function* () {
             yield messages.createMessage(data);
             io.sockets.emit('chat:messages', yield messages.getAllMessage());

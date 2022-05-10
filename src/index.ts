@@ -20,8 +20,12 @@ getConnection()
     .then( () =>{
         io.on('connection', async (socket:Socket) =>{
             console.log('WebSocket connection successful');
+            
+            /* PRODUCT LIST FEATURE */
+            socket.emit('productList', []);
+            
+            /* CHAT FEATURE */
             io.sockets.emit('chat:messages', await messages.getAllMessage());
-            //chat feature
             socket.on('chat:new-message', async (data: {userEmail:string, userMessageDate:string, userMessage:string}) =>{
                 await messages.createMessage(data);
                 io.sockets.emit('chat:messages', await messages.getAllMessage());
