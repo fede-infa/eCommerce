@@ -15,7 +15,7 @@ interface Iproduct extends Document{
 }
 
 // 2. Create a Schema corresponding to the document interface.
-const productSchema: SchemaType = new Schema({
+const productSchema: Iproduct = new Schema({
     title: {type: String, required: true},
     description: String,
     code: {type: String, required: true},
