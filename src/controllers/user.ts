@@ -30,6 +30,5 @@ export const getOne = async (req, res, next) =>{
             error: error,
         })
     }
-
 }
 

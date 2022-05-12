@@ -1,10 +1,10 @@
 "use strict";
 module.exports = (router) => {
     router
-        .get('/', (req, res) => {
+        .get('/index', (req, res) => {
         res.render(`${__dirname}/../views/index`);
     })
-        .get('/login', (req, res) => {
+        .get('/', (req, res) => {
         res.render(`${__dirname}/../views/login`);
     });
     return router;
