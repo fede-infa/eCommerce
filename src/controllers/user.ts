@@ -19,6 +19,10 @@ export const createUser = async (req, res, next) =>{
 
 export const getOne = async (req, res, next) =>{
     try {
+        res.json({
+            status: 200,
+            msg: 'User controller'
+        })
         
     } catch (error) {
         res.status(400).send({

@@ -2,9 +2,12 @@ import Iuser from "../../typings/types";
 const {model, Schema} = require('mongoose');
 
 const userSchema: Iuser = new Schema({
-    username: String,
+    name: String,
+    email: {
+        type: String,
+        unique: true
+    },
     password: String,
-    email: String,
 }, {timestamps: true})
 
 export = model('user', userSchema);

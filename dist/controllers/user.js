@@ -29,6 +29,10 @@ const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 exports.createUser = createUser;
 const getOne = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        res.json({
+            status: 200,
+            msg: 'User controller'
+        });
     }
     catch (error) {
         res.status(400).send({

@@ -7,8 +7,12 @@ export = class {
         return userModel.create(user);
     }
 
-    async getUser(userCredentials:Iuser){
+    async getUser(userCredentials:{email:string, password:string}){
         return userModel.findOne({'email': userCredentials.email});
+    }
+
+    async existUser(email:string){
+        return userModel.findOne({'email': email});
     }
 
 }

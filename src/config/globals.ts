@@ -6,4 +6,5 @@ module.exports = {
     MONGO_URI: process.env.MONGO_URI,
     MONGODB_URL: process.env.MONGODB_URL,
     SALT_ROUNDS: process.env.SALT_ROUNDS,
+    SECRET_SESSION: process.env.SECRET_SESSION,
 }
