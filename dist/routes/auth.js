@@ -12,11 +12,12 @@ const passport = require('passport');
 module.exports = (router) => {
     router
         .post('/login', passport.authenticate('login-local'), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        res.render(`${__dirname}/../views/profile`, { user: req.user });
+        res.redirect('/profile');
+        // res.render(`${__dirname}/../views/profile`, {user: req.user});
     }))
         .post('/logout', (req, res) => {
         req.logOut();
-        res.redirect('/login');
+        res.redirect('/');
         console.log('===> User logged out');
     });
     return router;

@@ -5,7 +5,8 @@ const { verifyToken } = require('../middlewares/authentication')
 
 export = (router:Router) =>{
     router
-        .get('/profile', verifyToken, (req: Request, res:Response) =>{
+        .get('/profile', (req: Request, res:Response) =>{
+            console.log(req);
             res.render(`${__dirname}/../views/profile`, {user: req.user});
         })
         

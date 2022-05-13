@@ -43,18 +43,9 @@ const userModel = require('./dao/models/user');
 
 // Purpose: Save user ID to a cookie (user = mongoDB document, done = function which saves data into a cookie)
 passport.serializeUser( (user, done) =>{
-    done(null, user._id)
+    done(null, user)
 })
 
-// Purpose: Retrieve User details from cookies
-// passport.deserializeUser( async (_id, done) =>{
-//     const userRetreived = await userModel.findOne(
-//         { _id: _id},
-//         (error, document) =>{
-//             done(null, document)
-//         }
-//     )
-// })
 passport.deserializeUser((user, done) => {
   done (null, user)
 })

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-<% include('./partials/header.ejs')%>
+<%- include('./partials/header.ejs'); %>
 <body>
 
-    <% include('./partials/navbar.ejs') %>
+    <!-- Include navbar -->
+    <%- include('./partials/navbar.ejs'); %>
 
-    <p>Hello  <b><%= user %></b></p>
+    <p>Hello  <b><%= user.first_name + ' ' +  user.last_name%></b></p>
     
     <span>Your data is:</span>
     <ul>
