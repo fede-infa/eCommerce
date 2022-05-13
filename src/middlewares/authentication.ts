@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
+const passport = require('passport');
 
-module.exports = function (options:{isAdmin: true}){
+export const isAdmin = (options:{isAdmin: true}) =>{
   return function(req: Request, res:Response, next:NextFunction){
     if(options.isAdmin === true){
       next();
@@ -10,3 +11,12 @@ module.exports = function (options:{isAdmin: true}){
     }
   }
 };
+
+
+export const checkAuthentication = (req, res, next) =>{
+    if(req.isAuthenticated()){ // Method added by passport
+        next()
+    } else{
+        res.redirect('/');
+    }
+}

@@ -1,4 +1,7 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 // Server setup
 const express = require('express');
@@ -31,31 +34,32 @@ app.use(passport.session());
 /* ----------------------- */
 /* --- PASSPORT CONFIG --- */
 /* -----------------------*/
-const LocalStrategy = require('passport-local').Strategy;
-const userModel = require('./dao/models/user');
-// Purpose: Save user ID to a cookie (user = mongoDB document, done = function which saves data into a cookie)
-passport.serializeUser((user, done) => {
-    done(console.log('error'), user._id);
-});
-// Purpose: Retrieve User details from cookies
-// passport.deserializeUser( async (userId, done) =>{
+// const LocalStrategy = require('passport-local').Strategy;
+// const userModel = require('./dao/models/user');
+// // Purpose: Save user ID to a cookie (user = mongoDB document, done = function which saves data into a cookie)
+// passport.serializeUser( (user, done) =>{
+//     done(null, user._id)
+// })
+// // Purpose: Retrieve User details from cookies
+// passport.deserializeUser( async (_id, done) =>{
 //     const userRetreived = await userModel.findOne(
-//         { _id: userId},
+//         { _id: _id},
 //         (error, document) =>{
-//             done(console.log('error'), document)
+//             done(null, document)
 //         }
 //     )
 // })
+// // login-local
 // passport.use(
-//     'login',
+//     'login-local',
 //     new LocalStrategy({
 //         usernameField: 'email',
 //         passwordField: 'password',
 //         passReqToCallback: false,
 //     },
-//     async (email:string, password:string, done:any) => {
+//     (email:string, password:string, done:any) => {
 //         try {
-//             await userModel.findOne({ email: email }, function (err, user) {
+//             userModel.findOne({ email: email }, function (err, user) {
 //                 if(err) return done(err);
 //                 if(!user) return done(null, false);
 //                 if(user.password != password) return done(null, false);
@@ -71,9 +75,13 @@ passport.serializeUser((user, done) => {
 app.use('/public', express.static(__dirname + '/public')); //Setting public folder
 app.set('view engine', 'ejs'); // EJS template engine
 // app.use('/login', authPassport); // Before every route
+const passport_1 = __importDefault(require("./middlewares/passport"));
+passport.use(passport_1.default);
 app.use(routes.product(router));
 app.use(routes.cart(router));
 app.use(routes.auth(router));
 app.use(routes.chat(router));
 app.use(routes.views(router));
+app.use(routes.user(router));
+app.use(routes.authJwt(router));
 module.exports = { io, server };
