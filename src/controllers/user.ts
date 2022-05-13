@@ -54,14 +54,11 @@ export const signUp = async (req:Request, res:Response) =>{
     if(!req.body.email || !req.body.password){
         return res.status(400).json({msg: 'Please send your email & password'})
     }
-
     const userRetrieved = await User.getUserByEmail(req.body.email);
 
     if(userRetrieved){
         return res.status(400).json('The user already exists');
     }
-
-
     const newUser = req.body;
     newUser.password = hashPassword(newUser.password);
     await User.createUser(req.body)
@@ -74,16 +71,15 @@ export const signIn = async (req:Request, res:Response) =>{
     if(!req.body.email || !req.body.password){
         return res.status(400).json({msg: 'Please send your email & password'})
     }
-
     const userRetrieved = await User.getUserByEmail(req.body.email);
 
     if(!userRetrieved){
         return res.status(400).json({msg: 'Invalid credentials'});
     }
-
     const isMatch = comparePassword(req.body.password, userRetrieved);
+    
     if(isMatch){
-        return res.status(200).json({token: createToken(userRetrieved)})
+        return res.status(200).json({token: createToken(userRetrieved)}) // res.token now has the user token
     }
 
     return res.status(400).json({msg: 'Invalid credentials'})

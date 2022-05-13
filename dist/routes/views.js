@@ -1,11 +1,11 @@
 "use strict";
-const { checkAuthentication } = require('../middlewares/authentication');
+const { checkAuthentication, notLoggedIn } = require('../middlewares/authentication');
 module.exports = (router) => {
     router
         .get('/index', checkAuthentication, (req, res) => {
         res.render(`${__dirname}/../views/index`);
     })
-        .get('/', (req, res) => {
+        .get('/', notLoggedIn, (req, res) => {
         res.render(`${__dirname}/../views/login`);
     })
         .get('/signup', (req, res) => {

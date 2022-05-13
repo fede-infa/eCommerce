@@ -84,7 +84,7 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     const isMatch = (0, bcrypt_1.comparePassword)(req.body.password, userRetrieved);
     if (isMatch) {
-        return res.status(200).json({ token: createToken(userRetrieved) });
+        return res.status(200).json({ token: createToken(userRetrieved) }); // res.token now has the user token
     }
     return res.status(400).json({ msg: 'Invalid credentials' });
 });

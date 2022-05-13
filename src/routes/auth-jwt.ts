@@ -8,5 +8,4 @@ export = (router) =>{
     router.post('/signin', signIn)
 
     return router
-
 }
