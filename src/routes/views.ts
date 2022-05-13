@@ -1,12 +1,16 @@
 import { Request, Response, Router } from "express";
+const { checkAuthentication, notLoggedIn } = require('../middlewares/authentication')
 
 export = (router: Router) =>{
     router
-        .get('/', (req: Request, res: Response) => {
+        .get('/index',checkAuthentication , (req: Request, res: Response) => {
             res.render(`${__dirname}/../views/index`);
         })
-        .get('/login',(req:Request, res: Response) =>{
+        .get('/', notLoggedIn, (req:Request, res: Response) =>{
             res.render(`${__dirname}/../views/login`)
+        })
+        .get('/signup', (req:Request, res: Response) =>{
+            res.render(`${__dirname}/../views/signup`)
         })
     
     return router;

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { verifyToken  } from '../middlewares/authentication'
 
 const productController = require('../controllers/product');
 

@@ -1,88 +1,76 @@
 "use strict";
-/* import { Request, Response} from "express"; // Required for TS
-import { Socket } from "socket.io"; // Required for TS
-
-// Express
-const express = require('express');
-const app = express();
-const cors = require('cors');
-const compression = require('compression');
-require('dotenv').config();
-
-// Socket.io
-const http = require('http');
-const server = http.createServer(app);
-const { Server } = require('socket.io')
-const io = new Server(server);
-
-// Server express
-const PORT = process.env.PORT || 8080;
-const HOST = process.env.HOST || 'localhost'
-server.listen(PORT, () => console.log(`Server is up http://${HOST}:${PORT}`));
-
-server.on('error', (err: ErrorCallback) =>{
-    console.log(`Error en el servidor: ${err}`)
-});
-
-// My modules
-const file = require('./models/file');
-const Product = require('./api/products');
-const Cart = require('./api/cart');
-
-// App config
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use('/public',express.static(__dirname + '/public')) //Setting public folder
-app.use('/api', Product); // Router API for products
-app.use('/api', Cart); // Router API for products
-app.set('view engine', 'ejs'); // EJS template engine
-
-// Index.html
-app.get('/', (req: Request, res: Response) =>{
-    res.render(`${__dirname}/views/index`);
-});
-
-// Products table
-app.get('/products/view', async(req: Request, res: Response) =>{
-    const productList = await file.read();
-    console.log(productList);
-    res.render(`${__dirname}/views/products`, {products: productList});
-});
-
-// Socket connection
-const listMessages:Array<object> = [];
-io.on('connection', async (socket: Socket) =>{
-    console.log('User connected via WebSocket');
-    const products = await file.read();
-    io.sockets.emit('productList', products);
-
-    // Chat feature
-    socket.on('chat:new-message', (data) =>{
-        listMessages.push(data);
-        io.sockets.emit('chat:messages', listMessages);
-    });
-}); */
 Object.defineProperty(exports, "__esModule", { value: true });
 // Server setup
 const express = require('express');
 const cors = require('cors');
 const compression = require('compression');
-const routes = require('./routes/routes');
-const router = express.Router();
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const router = express.Router(); // Router middleware
 const app = express();
+const routes = require('./routes/routes'); // My routes
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(server);
+const passport = require('passport');
+/* MIDDLEWARES SETUP */
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(compression());
-/* app.use('/public',express.static(__dirname + '/public')) //Setting public folder */
+app.use(cookieParser());
+app.use(session({
+    secret: require('./config/globals').SECRET_SESSION,
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+/* ----------------------- */
+/* --- PASSPORT CONFIG --- */
+/* -----------------------*/
+const LocalStrategy = require('passport-local').Strategy;
+const userModel = require('./dao/models/user');
+// Purpose: Save user ID to a cookie (user = mongoDB document, done = function which saves data into a cookie)
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+passport.deserializeUser((user, done) => {
+    done(null, user);
+});
+const bcrypt_1 = require("./utils/bcrypt");
+// login-local
+passport.use('login-local', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: false,
+}, (email, password, done) => {
+    try {
+        userModel.findOne({ email: email }, function (err, user) {
+            if (err)
+                return done(err);
+            if (!user)
+                return done(null, false);
+            const isMatch = (0, bcrypt_1.comparePassword)(password, user);
+            if (!isMatch)
+                return done(null, false);
+            done(null, user);
+        });
+    }
+    catch (error) {
+        return error;
+    }
+}));
 app.use('/public', express.static(__dirname + '/public')); //Setting public folder
 app.set('view engine', 'ejs'); // EJS template engine
+// import passportMiddleware from './middlewares/passport'
+// passport.use(passportMiddleware);
 app.use(routes.product(router));
 app.use(routes.cart(router));
-app.use(routes.views(router));
+app.use(routes.auth(router));
 app.use(routes.chat(router));
+app.use(routes.views(router));
+app.use(routes.user(router));
+app.use(routes.authJwt(router));
 module.exports = { io, server };

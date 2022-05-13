@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<%- include('./partials/header.ejs'); %>
+<body>
+
+    <!-- Include navbar -->
+    <%- include('./partials/navbar.ejs'); %>
+
+    <p>Hello  <b><%= user.first_name + ' ' +  user.last_name%></b></p>
+    
+    <span>Your data is:</span>
+    <ul>
+        <li>_id: <%= user._id %></li>
+        <li>Email: <%= user.email %></li>
+        <li>Password: <%= user.password %></li>
+        <li>username: <%= user.username %></li>
+    </ul>
+</body>
+</html>
