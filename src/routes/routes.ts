@@ -5,6 +5,7 @@ const chatRouter = require('./chat');
 const viewRouter = require('./views');
 const userRouter = require('./user');
 const authJwtRouter = require('./auth-jwt');
+const processes = require('./global-child-process')
 
 export = {
     product: productRouter,
@@ -14,4 +15,5 @@ export = {
     views: viewRouter,
     user: userRouter,
     authJwt: authJwtRouter,
+    appInfo: processes,
 }

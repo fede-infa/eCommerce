@@ -18,6 +18,7 @@ const server = http.createServer(app);
 const { Server } = require('socket.io')
 const io = new Server(server);
 const passport = require('passport')
+const GLOBALS = require('./config/globals');
 
 
 /* MIDDLEWARES SETUP */
@@ -27,7 +28,7 @@ app.use(cors());
 app.use(compression());
 app.use(cookieParser())
 app.use(session({
-    secret: require('./config/globals').SECRET_SESSION,
+    secret: GLOBALS.SECRET_SESSION,
     resave: false,
     saveUninitialized: false
 }));
@@ -40,6 +41,7 @@ app.use(passport.session());
 /* -----------------------*/
 const LocalStrategy = require('passport-local').Strategy;
 const userModel = require('./dao/models/user');
+const FacebookStrategy = require('passport-facebook').Strategy;
 
 // Purpose: Save user ID to a cookie (user = mongoDB document, done = function which saves data into a cookie)
 passport.serializeUser( (user, done) =>{
@@ -75,6 +77,19 @@ passport.use(
         }
 ));
 
+/* LOGIN FACEBOOK */
+passport.use(new FacebookStrategy({
+    clientID: GLOBALS.FACEBOOK_CLIENT_ID,
+    clienteSecret: GLOBALS.FACEBOOK_CLIENT_SECRET,
+    callbackURL: '/auth/facebook/callback',
+    profileFields: ['id', 'displayName', 'photos', 'emails'],
+    scope: ['email'] 
+}, function(accessToken, refreshToken, profile, done){
+    let userProfile = profile;
+    return done(null, userProfile);
+}
+))
+
 app.use('/public',express.static(__dirname + '/public')); //Setting public folder
 app.set('view engine', 'ejs'); // EJS template engine
 
@@ -88,5 +103,10 @@ app.use(routes.chat(router));
 app.use(routes.views(router));
 app.use(routes.user(router));
 app.use(routes.authJwt(router));
+
+app.use('/info', routes.appInfo(router));
+
+app.get('/auth/facebook', passport.authenticate('facebook'))
+app.get('/auth/facebook/callback', passport.authenticate('facebook',{successRedirect: '/home', failureRedirect: '/faillogin' }));
 
 module.exports = { io, server};

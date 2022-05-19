@@ -8,4 +8,6 @@ module.exports = {
     SALT_ROUNDS: process.env.SALT_ROUNDS,
     SECRET_SESSION: process.env.SECRET_SESSION,
     JWT_TOKEN: process.env.JWT_TOKEN,
+    FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
+    FACEBOOK_CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
 };

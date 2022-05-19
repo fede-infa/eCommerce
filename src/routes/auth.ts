@@ -12,6 +12,7 @@ export = (router:Router) =>{
         res.redirect('/');
         console.log('===> User logged out');
     })
+    
 
     return router
 }
